@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'test_helper'
+require 'pry'
 
 class ProfilesTest < Minitest::Test
   describe 'profiles are parsed from' do

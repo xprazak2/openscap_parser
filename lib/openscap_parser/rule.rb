@@ -2,6 +2,7 @@
 
 require 'openscap_parser/rule_identifier'
 require 'openscap_parser/rule_references'
+require 'openscap_parser/fixes'
 require 'openscap_parser/xml_file'
 
 # Mimics openscap-ruby Rule interface
@@ -9,6 +10,7 @@ module OpenscapParser
   class Rule < XmlNode
     include OpenscapParser::Util
     include OpenscapParser::RuleReferences
+    include OpenscapParser::Fixes
 
     def id
       @id ||= parsed_xml['id']
@@ -53,6 +55,18 @@ module OpenscapParser
 
     def identifier_node
       @identifier_node ||= parsed_xml.at_xpath('ident')
+    end
+
+    def to_h
+      {
+        :id => id,
+        :selected => selected,
+        :severity => severity,
+        :title => title,
+        :description => description,
+        :rationale => rationale,
+        :identifier => rule_identifier.to_h
+      }
     end
   end
 end
